@@ -6,6 +6,7 @@ interface BookState {
     unlockedChapterIndex: number;
     isSidebarOpen: boolean;
     selectedBookId: string | null;
+    currentSummary: string | null;
 
     // Actions
     setChapterIndex: (index: number) => void;
@@ -13,6 +14,7 @@ interface BookState {
     unlockNextChapter: () => void;
     toggleSidebar: () => void;
     setSidebarOpen: (isOpen: boolean) => void;
+    setSummary: (summary: string | null) => void;
 }
 
 export const useBookStore = create<BookState>()(
@@ -22,6 +24,7 @@ export const useBookStore = create<BookState>()(
             unlockedChapterIndex: 0,
             isSidebarOpen: false,
             selectedBookId: null,
+            currentSummary: null,
 
             setChapterIndex: (index) => set((state) => {
                 if (index > state.unlockedChapterIndex) {
@@ -41,6 +44,8 @@ export const useBookStore = create<BookState>()(
             })),
 
             setSidebarOpen: (isOpen) => set({ isSidebarOpen: isOpen }),
+
+            setSummary: (summary) => set({ currentSummary: summary }),
         }),
         {
             name: 'rebook-storage', // unique name for localStorage
